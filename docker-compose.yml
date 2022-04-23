@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    domainname: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
+      interval: 5s
+      timeout: 1s
+      retries: 2
+
+  flyway:
+    image: flyway/flyway:7.5.3
+    command: -url=jdbc:postgresql://postgres:5432/postgres -locations='filesystem:/migrations' -schemas=public -user=postgres -password=postgres migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - postgres
+
+  api:
+    container_name: demo-api
+    build:
+      context: ./
+    image: demo-api
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    volumes:
+      - './:/src'
+
+volumes:
+  db:
+    driver: local
