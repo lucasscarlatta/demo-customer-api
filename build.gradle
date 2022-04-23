@@ -9,19 +9,40 @@ group = 'com.test'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_18
+    targetCompatibility = JavaVersion.VERSION_18
 }
 
 repositories {
     mavenCentral()
 }
 
+ext {
+    set('testcontainersVersion', "1.16.2")
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'org.flywaydb:flyway-core:8.5.7'
+    implementation 'org.perf4j:perf4j:0.9.16'
+
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+    }
 }
 
 application {
@@ -30,4 +51,21 @@ application {
 
 tasks.named('test') {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
+
+task integrationTest(type: Test) {
+    description = "Run integration tests"
+    group = "verification"
+    useJUnitPlatform {
+        includeTags 'integration'
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    shouldRunAfter test
+}
+
+check.dependsOn integrationTest
