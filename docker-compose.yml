@@ -29,7 +29,7 @@ services:
       - postgres
 
   api:
-    container_name: demo-api
+    container_name: com.test.demo-api
     build:
       context: ./
     image: demo-api

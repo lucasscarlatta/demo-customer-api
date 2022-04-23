@@ -1,4 +1,4 @@
--- demo.user data
+-- com.test.demo.user data
 INSERT INTO Users(name, surname, customer_id)
 VALUES ('Chris', 'Johnson', gen_random_uuid ()),
        ('Daniel', 'Rodriguez', gen_random_uuid ()),

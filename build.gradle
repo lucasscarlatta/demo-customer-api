@@ -9,8 +9,8 @@ group = 'com.test'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_18
+    targetCompatibility = JavaVersion.VERSION_18
 }
 
 repositories {
@@ -51,4 +51,21 @@ application {
 
 tasks.named('test') {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
+
+task integrationTest(type: Test) {
+    description = "Run integration tests"
+    group = "verification"
+    useJUnitPlatform {
+        includeTags 'integration'
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    shouldRunAfter test
+}
+
+check.dependsOn integrationTest

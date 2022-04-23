@@ -1,7 +1,6 @@
 package com.test.demo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +10,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "Users")
+@Data
 public class User {
 
     @Id
@@ -30,7 +28,6 @@ public class User {
     @Column(nullable = false)
     private String surname;
 
-    @NotBlank
     @Column(name = "customer_id", nullable = false, unique = true)
     private UUID customerId;
 }

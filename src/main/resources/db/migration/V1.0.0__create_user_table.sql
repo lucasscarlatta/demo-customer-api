@@ -1,4 +1,4 @@
--- demo.user definition
+-- com.test.demo.user definition
 CREATE TABLE Users (
                       id            UUID DEFAULT gen_random_uuid (),
                       name          varchar(255) NOT NULL,
