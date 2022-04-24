@@ -6,7 +6,7 @@ on:
       - feature/deploy_do # TODO update to main
 
 env:
-  IMAGE_NAME: demo-api:$(date +%s)
+  IMAGE_NAME: demo-api
 
 jobs:
   build:
