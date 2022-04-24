@@ -19,8 +19,6 @@ jobs:
         with:
           website: jdk.java.net
           release: '18'
-          server-id: github
-          settings-path: ${{ github.workspace }}
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
@@ -48,7 +46,7 @@ jobs:
         run:  docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Docker push
-        run: docker push ${{ secrets.DOCKER_USER }}/demo:$IMAGE_NAME
+        run: docker push ${{ secrets.DOCKER_USER }}/demo:$IMAGE_NAME:latest
 
   deploy:
     needs: [ build, push ]
