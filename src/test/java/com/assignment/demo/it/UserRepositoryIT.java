@@ -1,7 +1,7 @@
-package com.test.demo.it;
+package com.assignment.demo.it;
 
-import com.test.demo.domain.User;
-import com.test.demo.repository.UserRepository;
+import com.assignment.demo.domain.User;
+import com.assignment.demo.repository.UserRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +53,7 @@ public class UserRepositoryIT extends AbstractIT {
     }
 
     @AfterEach
-    public void cleanUpEach(){
+    public void cleanUpEach() {
         System.out.println("After Each cleanUpEach() method called");
     }
 }

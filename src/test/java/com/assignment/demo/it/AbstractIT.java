@@ -1,7 +1,8 @@
-package com.test.demo.it;
+package com.assignment.demo.it;
 
-import com.test.demo.repository.UserRepository;
+import com.assignment.demo.DemoApplication;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.Tag;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,8 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @ActiveProfiles("test")
-@SpringBootTest(classes = UserRepository.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Tag("integration")
+@SpringBootTest(classes = DemoApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ContextConfiguration(initializers = AbstractIT.DockerPostgreDataSourceInitializer.class)
 @Testcontainers
