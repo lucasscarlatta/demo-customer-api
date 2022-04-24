@@ -25,10 +25,6 @@ services:
     volumes:
       - './:/src'
 
-volumes:
-  db:
-    driver: local
-
 networks:
   gcp:
     driver: bridge
