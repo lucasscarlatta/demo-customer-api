@@ -1,7 +1,7 @@
-package com.test.demo.controller;
+package com.assignment.demo.controller;
 
-import com.test.demo.domain.User;
-import com.test.demo.service.UserService;
+import com.assignment.demo.domain.User;
+import com.assignment.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.perf4j.slf4j.Slf4JStopWatch;
 import org.springframework.validation.annotation.Validated;

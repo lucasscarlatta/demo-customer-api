@@ -5,6 +5,8 @@ services:
     image: postgres:14.1-alpine
     domainname: postgres
     restart: always
+    networks:
+      - gcp
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -27,6 +29,8 @@ services:
       - POSGREST_HOST=postgres
     depends_on:
       - postgres
+    networks:
+      - gcp
 
   api:
     container_name: com.test.demo-api
@@ -41,6 +45,8 @@ services:
     depends_on:
       - postgres
       - flyway
+    networks:
+      - gcp
     links:
       - postgres
     volumes:
@@ -49,3 +55,7 @@ services:
 volumes:
   db:
     driver: local
+
+networks:
+  gcp:
+    driver: bridge

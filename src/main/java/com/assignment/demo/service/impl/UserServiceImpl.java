@@ -1,8 +1,8 @@
-package com.test.demo.service.impl;
+package com.assignment.demo.service.impl;
 
-import com.test.demo.domain.User;
-import com.test.demo.repository.UserRepository;
-import com.test.demo.service.UserService;
+import com.assignment.demo.domain.User;
+import com.assignment.demo.repository.UserRepository;
+import com.assignment.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

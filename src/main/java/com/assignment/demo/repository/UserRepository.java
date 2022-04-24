@@ -1,6 +1,6 @@
-package com.test.demo.repository;
+package com.assignment.demo.repository;
 
-import com.test.demo.domain.User;
+import com.assignment.demo.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

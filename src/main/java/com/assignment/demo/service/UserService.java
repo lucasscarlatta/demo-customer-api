@@ -1,6 +1,6 @@
-package com.test.demo.service;
+package com.assignment.demo.service;
 
-import com.test.demo.domain.User;
+import com.assignment.demo.domain.User;
 
 import java.util.List;
 
