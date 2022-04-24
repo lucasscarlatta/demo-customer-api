@@ -1,54 +1,27 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:14.1-alpine
-    domainname: postgres
-    restart: always
-    networks:
-      - gcp
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-    ports:
-      - '5432:5432'
-    healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
-      interval: 5s
-      timeout: 1s
-      retries: 2
-
   flyway:
     restart: on-failure
     image: flyway/flyway:7.5.3
-    command: -url=jdbc:postgresql://postgres:5432/postgres -schemas=public -user=postgres -password=postgres migrate
+    command: -url=jdbc:postgresql://${POSTGRES_HOST}/${POSTGRES_DB} -schemas=public -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} migrate
     volumes:
       - ./src/main/resources/db/migration:/flyway/sql
-    environment:
-      - POSGREST_HOST=postgres
-    depends_on:
-      - postgres
     networks:
       - gcp
 
   api:
-    container_name: com.test.demo-api
+    container_name: demo-api
     build:
       context: ./
     image: demo-api
     restart: on-failure
     ports:
     - '8080:8080'
-    environment:
-      - POSGREST_HOST=postgres
     depends_on:
-      - postgres
       - flyway
     networks:
       - gcp
-    links:
-      - postgres
     volumes:
       - './:/src'
 
