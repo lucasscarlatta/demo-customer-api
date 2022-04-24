@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - feature/deploy_do # TODO update to main
+      - main
 
 env:
   IMAGE_NAME: demo
