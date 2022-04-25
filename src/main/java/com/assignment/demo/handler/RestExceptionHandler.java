@@ -3,6 +3,7 @@ package com.assignment.demo.handler;
 import com.assignment.demo.dto.ApiSubErrorDTO;
 import com.assignment.demo.exception.NoContentException;
 import com.assignment.demo.exception.NotFoundException;
+import com.assignment.demo.exception.OverdrawException;
 import com.assignment.demo.vo.response.ApiErrorResponse;
 import io.micrometer.core.lang.NonNullApi;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
@@ -62,6 +64,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("Not found", ex);
 
         return new ApiErrorResponse(NOT_FOUND, ex.getMessage(), ex);
+    }
+
+    @ExceptionHandler(OverdrawException.class)
+    @ResponseBody
+    @ResponseStatus(value = CONFLICT)
+    public ApiErrorResponse handleOverdrawException(OverdrawException ex, WebRequest request) {
+        log.error("Overdraw", ex);
+
+        return new ApiErrorResponse(CONFLICT, ex.getMessage(), ex);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

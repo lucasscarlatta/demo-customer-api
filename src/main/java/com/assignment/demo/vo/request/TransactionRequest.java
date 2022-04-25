@@ -1,5 +1,6 @@
 package com.assignment.demo.vo.request;
 
+import com.assignment.demo.domain.enums.TransactionType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,14 +12,14 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class AccountRequest {
+public class TransactionRequest {
 
     @NotNull
-    private UUID customerId;
+    private UUID accountId;
 
-    @NotBlank
-    private String name;
+    @NotNull
+    private TransactionType transactionType;
 
     @Min(value = 0)
-    private BigDecimal initial = BigDecimal.ZERO;
+    private BigDecimal amount;
 }

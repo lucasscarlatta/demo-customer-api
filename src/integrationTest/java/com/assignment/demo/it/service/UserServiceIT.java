@@ -7,7 +7,6 @@ import com.assignment.demo.repository.UserRepository;
 import com.assignment.demo.service.UserService;
 import org.junit.After;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 

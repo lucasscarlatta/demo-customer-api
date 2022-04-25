@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface AccountService {
 
-    void createAccount(AccountRequest accountRequest);
+    Account createAccount(AccountRequest accountRequest);
 
     List<Account> getAllAccounts();
 

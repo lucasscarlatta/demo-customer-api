@@ -37,7 +37,7 @@ Run the demo to create bank account and make transactions. User are already crea
      
 3. Create account associated to customerId
    - Execute `curl -X POST -H "Content-Type: application/json" \
-     -d '{"name": "AccountName", "customerId": "${customerId}"}' \
+     -d '{"name": "AccountName", "customerId": "${customerId}", "initial": "100"}' \
      http://localhost:8080/v1/accounts`
    - Replace `${customerId}` by a real customerId generated
 
@@ -54,6 +54,27 @@ Run the demo to create bank account and make transactions. User are already crea
    - `curl -X GET -H "Content-Type: application/json" \
      http://localhost:8080/v1/accounts/customers/${customerId}`
    - Replace `${customerId}` by a real customerId generated
+
+7. Execute deposit associate to account
+    - Execute `curl -X POST -H "Content-Type: application/json" \
+      -d '{"transactionType": "DEPOSIT", "accountId": "${accountId}", "amount": "100"}' \
+      http://localhost:8080/v1/transactions`
+    - Replace `${accountId}` by a real accountId generated
+
+8. Execute withdraw associate to account
+    - Execute `curl -X POST -H "Content-Type: application/json" \
+      -d '{"transactionType": "WITHDRAW", "accountId": "${accountId}", "amount": "100"}' \
+      http://localhost:8080/v1/transactions`
+    - Replace `${accountId}` by a real accountId generated
+
+9. List all transactions
+    - `curl -X GET -H "Content-Type: application/json" \
+      http://localhost:8080/v1/transactions`
+
+10. Find transactions by accountId
+    - `curl -X GET -H "Content-Type: application/json" \
+      http://localhost:8080/v1/transactions/accounts/${accountId}`
+    - Replace `${accountId}` by a real accountId generated
    
 #### Use openApi to call endpoint
 1. Go to [SwaggerUI](http://localhost:8080/swagger-ui.html)
@@ -63,3 +84,7 @@ Run the demo to create bank account and make transactions. User are already crea
 - Execute unit test `./gradle clean test`
 - Execute integration test `./gradle clean integrationTest`
 - Execute all test `./gradle clean check`
+
+#### Deployed URL
+Go to [health](http://157.245.77.89:8080/actuator/health)
+Go to [SwaggerUI](http://157.245.77.89:8080/swagger-ui.html)

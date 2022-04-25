@@ -29,10 +29,10 @@ public class AccountController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    void createAccount(@RequestBody @Valid @NotNull AccountRequest accountRequest) {
+    Account createAccount(@RequestBody @Valid @NotNull AccountRequest accountRequest) {
         var stopWatch = new Slf4JStopWatch(String.format("Create account for [customerId: %s]", accountRequest.getCustomerId()));
         try {
-            accountService.createAccount(accountRequest);
+            return accountService.createAccount(accountRequest);
         } finally {
             stopWatch.stop();
         }
