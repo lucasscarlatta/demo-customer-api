@@ -1,7 +1,6 @@
 package com.assignment.demo.controller;
 
 import com.assignment.demo.domain.Account;
-import com.assignment.demo.domain.User;
 import com.assignment.demo.service.AccountService;
 import com.assignment.demo.vo.request.AccountRequest;
 import lombok.RequiredArgsConstructor;
