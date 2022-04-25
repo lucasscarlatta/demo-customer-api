@@ -51,9 +51,19 @@ public class AccountController {
 
     @GetMapping("{id}")
     Account getAccountById(@PathVariable UUID id) {
-        var stopWatch = new Slf4JStopWatch(String.format("Get account by [id: %s]", id));
+        var stopWatch = new Slf4JStopWatch(String.format("Get account by [Id: %s]", id));
         try {
             return accountService.getAccountById(id);
+        } finally {
+            stopWatch.stop();
+        }
+    }
+
+    @GetMapping("customers/{customerId}")
+    List<Account> getAccountsByCustomerId(@PathVariable UUID customerId) {
+        var stopWatch = new Slf4JStopWatch(String.format("Get accounts by customerId [CustomerId: %s]", customerId));
+        try {
+            return accountService.getAllAccountsByCustomerId(customerId);
         } finally {
             stopWatch.stop();
         }

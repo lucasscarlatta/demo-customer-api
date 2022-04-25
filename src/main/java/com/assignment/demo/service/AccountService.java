@@ -13,4 +13,6 @@ public interface AccountService {
     List<Account> getAllAccounts();
 
     Account getAccountById(UUID id);
+
+    List<Account> getAllAccountsByCustomerId(UUID customerId);
 }
