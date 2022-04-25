@@ -3,6 +3,7 @@ package com.assignment.demo.it.service;
 import com.assignment.demo.domain.Account;
 import com.assignment.demo.domain.User;
 import com.assignment.demo.domain.enums.TransactionType;
+import com.assignment.demo.exception.NoContentException;
 import com.assignment.demo.exception.NotFoundException;
 import com.assignment.demo.it.AbstractServiceIT;
 import com.assignment.demo.repository.AccountRepository;
@@ -114,7 +115,7 @@ public class TransactionServiceIT extends AbstractServiceIT {
     public void findTransactionByAccountIdNotFound() {
         var account = createAccount(BigDecimal.ZERO);
 
-        var thrown = assertThrows(NotFoundException.class, () -> transactionService
+        var thrown = assertThrows(NoContentException.class, () -> transactionService
                 .getTransactionsByAccountId(account.getId()));
 
         assertEquals(String.format("Transactions no content for account id. [AccountId: %s]", account.getId()),
