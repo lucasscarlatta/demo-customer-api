@@ -22,3 +22,7 @@ management:
 
 server:
   port: ${PORT:8080}
+
+springdoc:
+  api-docs:
+    path: /api-docs

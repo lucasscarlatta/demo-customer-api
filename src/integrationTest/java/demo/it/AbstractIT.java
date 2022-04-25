@@ -19,9 +19,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @ActiveProfiles("test")
 @Tag("integration")
-@SpringBootTest(classes = DemoApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ContextConfiguration(initializers = AbstractIT.DockerPostgreDataSourceInitializer.class)
+@ContextConfiguration(classes = DemoApplication.class, initializers = AbstractIT.DockerPostgreDataSourceInitializer.class)
 @Testcontainers
 @RunWith(SpringRunner.class)
 public abstract class AbstractIT {
