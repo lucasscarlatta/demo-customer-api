@@ -5,31 +5,37 @@ import com.assignment.demo.domain.Account;
 import com.assignment.demo.domain.User;
 import com.assignment.demo.exception.NoContentException;
 import com.assignment.demo.exception.NotFoundException;
-import com.assignment.demo.handler.RestExceptionHandler;
+import com.assignment.demo.it.AbstractControllerIT;
 import com.assignment.demo.it.AbstractIT;
 import com.assignment.demo.service.AccountService;
+import com.assignment.demo.service.UserService;
+import com.assignment.demo.vo.request.AccountRequest;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AccountController.class)
-public class AccountControllerIT extends AbstractIT {
+public class AccountControllerIT extends AbstractControllerIT {
 
     @MockBean
     private AccountService accountService;
+
+    @MockBean
+    private UserService userService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -120,5 +126,22 @@ public class AccountControllerIT extends AbstractIT {
         mockMvc.perform(get(String.format("/v1/accounts/customers/%s", id)))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.status", Matchers.is("NOT_FOUND")));
+    }
+
+    @Test
+    public void testCreateAccount() throws Exception {
+        var customerId = UUID.randomUUID();
+        var customer = new User();
+        customer.setId(customerId);
+
+        var accountRequest = new AccountRequest();
+        accountRequest.setCustomerId(customerId);
+        accountRequest.setName("Name");
+
+        when(userService.getUserByCustomerId(customerId)).thenReturn(customer);
+
+        mockMvc.perform(post("/v1/accounts").contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper(accountRequest)))
+                .andExpect(status().isCreated());
     }
 }

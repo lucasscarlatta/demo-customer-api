@@ -2,6 +2,7 @@ package com.assignment.demo.it.controller;
 
 import com.assignment.demo.controller.UserController;
 import com.assignment.demo.domain.User;
+import com.assignment.demo.it.AbstractControllerIT;
 import com.assignment.demo.it.AbstractIT;
 import com.assignment.demo.service.UserService;
 import org.hamcrest.Matchers;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
-public class UserControllerIT extends AbstractIT {
+public class UserControllerIT extends AbstractControllerIT {
 
     @MockBean
     private UserService userService;
